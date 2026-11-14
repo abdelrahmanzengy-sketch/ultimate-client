@@ -41,7 +41,7 @@ jobs:
           # BlockEntity exposes getPos(); getEntityPos() does not exist in 1.21.11.
           # BlockEntity uses getPos(); Entity uses getEntityPos() in this target.
           sed -i 's/\.getEntityPos()/\.getPos()/g' "$FILE"
-          sed -i 's/e\.getPos()/e.getEntityPos()/g' "$FILE"
+          sed -i 's/\\<e\.getPos()/e.getEntityPos()/g' "$FILE"
           grep -q 'e.getEntityPos()' "$FILE"
 
       - name: Build Minecraft 1.21.11
