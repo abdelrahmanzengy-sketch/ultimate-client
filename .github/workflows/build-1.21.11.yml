@@ -39,9 +39,11 @@ jobs:
         run: |
           FILE="source/UltimateClient/versions/1.21.11/src/main/java/dev/ultimate/McGame.java"
           # BlockEntity exposes getPos(); getEntityPos() does not exist in 1.21.11.
+          # BlockEntity uses getPos(); Entity uses getEntityPos() in this target.
           sed -i 's/\.getEntityPos()/\.getPos()/g' "$FILE"
+          sed -i 's/e\.getPos()/e.getEntityPos()/g' "$FILE"
           grep -q 'be.getPos()' "$FILE"
-          ! grep -q 'getEntityPos()' "$FILE"
+          grep -q 'e.getEntityPos()' "$FILE"
 
       - name: Build Minecraft 1.21.11
         shell: bash
