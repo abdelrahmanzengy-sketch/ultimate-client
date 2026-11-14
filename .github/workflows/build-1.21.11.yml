@@ -38,9 +38,10 @@ jobs:
         shell: bash
         run: |
           FILE="source/UltimateClient/versions/1.21.11/src/main/java/dev/ultimate/McGame.java"
-          grep -q 'e.getPos()' "$FILE"
-          sed -i 's/e\.getPos()/e.getEntityPos()/g' "$FILE"
-          grep -q 'e.getEntityPos()' "$FILE"
+          # BlockEntity exposes getPos(); getEntityPos() does not exist in 1.21.11.
+          sed -i 's/\.getEntityPos()/\.getPos()/g' "$FILE"
+          grep -q 'be.getPos()' "$FILE"
+          ! grep -q 'getEntityPos()' "$FILE"
 
       - name: Build Minecraft 1.21.11
         shell: bash
