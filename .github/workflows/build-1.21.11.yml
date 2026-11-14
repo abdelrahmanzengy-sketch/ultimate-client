@@ -41,8 +41,8 @@ jobs:
           FILE="source/UltimateClient/versions/1.21.11/src/main/java/dev/ultimate/McGame.java"
           # Entity uses getEntityPos() in 1.21.11; BlockEntity keeps getPos().
           sed -i 's/e\.getPos()/e.getEntityPos()/g' "$FILE"
-          grep -q 'e.getEntityPos()' "$FILE"
-          grep -q 'be.getPos()' "$FILE"
+          grep -Fq 'e.getEntityPos()' "$FILE"
+          grep -Fq 'be.getPos()' "$FILE"
 
       - name: Build Minecraft 1.21.11
         shell: bash
